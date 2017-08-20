@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import android.widget.FrameLayout;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.R;
+import com.facebook.react.bridge.GuardedRunnable;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.common.annotations.VisibleForTesting;
@@ -308,7 +310,7 @@ public class ReactModalHostView extends ViewGroup implements LifecycleEventListe
         reactContext.runOnNativeModulesQueueThread(
           new GuardedRunnable(reactContext) {
             @Override
-            public void run() {
+            public void runGuarded() {
               ((ReactContext) getContext()).getNativeModule(UIManagerModule.class)
                 .updateNodeSize(viewTag, w, h);
             }
